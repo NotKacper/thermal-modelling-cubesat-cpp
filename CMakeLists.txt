@@ -3,12 +3,13 @@ project(CubeSatCPP)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(CubeSatCPP main.cpp
-        ThermalSimulation.cpp
-        ThermalSimulation.h
-        ViewFactorMatrix.cpp
-        ViewFactorMatrix.h
-        HeatFluxMatrix.cpp
-        HeatFluxMatrix.h
-        TemperatureMatrix.cpp
-        TemperatureMatrix.h)
+add_executable(CubeSatCPP Classes/Matrices/main.cpp
+        Classes/ThermalSimulation.cpp
+        Classes/ThermalSimulation.h
+        Classes/Matrices/ViewFactorMatrix.cpp
+        Classes/Matrices/ViewFactorMatrix.h
+        Classes/Matrices/HeatFluxMatrix.cpp
+        Classes/Matrices/HeatFluxMatrix.h
+        Classes/Matrices/TemperatureMatrix.cpp
+        Classes/Matrices/TemperatureMatrix.h
+        main.cpp)

@@ -49,32 +49,38 @@ cmake_ninja_workdir = /home/sudo/CLionProjects/CubeSatCPP/cmake-build-debug/
 
 build cmake_object_order_depends_target_CubeSatCPP: phony || CMakeFiles/CubeSatCPP.dir
 
+build CMakeFiles/CubeSatCPP.dir/Classes/Matrices/main.cpp.o: CXX_COMPILER__CubeSatCPP_unscanned_Debug /home/sudo/CLionProjects/CubeSatCPP/Classes/Matrices/main.cpp || cmake_object_order_depends_target_CubeSatCPP
+  DEP_FILE = CMakeFiles/CubeSatCPP.dir/Classes/Matrices/main.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/CubeSatCPP.dir
+  OBJECT_FILE_DIR = CMakeFiles/CubeSatCPP.dir/Classes/Matrices
+
+build CMakeFiles/CubeSatCPP.dir/Classes/ThermalSimulation.cpp.o: CXX_COMPILER__CubeSatCPP_unscanned_Debug /home/sudo/CLionProjects/CubeSatCPP/Classes/ThermalSimulation.cpp || cmake_object_order_depends_target_CubeSatCPP
+  DEP_FILE = CMakeFiles/CubeSatCPP.dir/Classes/ThermalSimulation.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/CubeSatCPP.dir
+  OBJECT_FILE_DIR = CMakeFiles/CubeSatCPP.dir/Classes
+
+build CMakeFiles/CubeSatCPP.dir/Classes/Matrices/ViewFactorMatrix.cpp.o: CXX_COMPILER__CubeSatCPP_unscanned_Debug /home/sudo/CLionProjects/CubeSatCPP/Classes/Matrices/ViewFactorMatrix.cpp || cmake_object_order_depends_target_CubeSatCPP
+  DEP_FILE = CMakeFiles/CubeSatCPP.dir/Classes/Matrices/ViewFactorMatrix.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/CubeSatCPP.dir
+  OBJECT_FILE_DIR = CMakeFiles/CubeSatCPP.dir/Classes/Matrices
+
+build CMakeFiles/CubeSatCPP.dir/Classes/Matrices/HeatFluxMatrix.cpp.o: CXX_COMPILER__CubeSatCPP_unscanned_Debug /home/sudo/CLionProjects/CubeSatCPP/Classes/Matrices/HeatFluxMatrix.cpp || cmake_object_order_depends_target_CubeSatCPP
+  DEP_FILE = CMakeFiles/CubeSatCPP.dir/Classes/Matrices/HeatFluxMatrix.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/CubeSatCPP.dir
+  OBJECT_FILE_DIR = CMakeFiles/CubeSatCPP.dir/Classes/Matrices
+
+build CMakeFiles/CubeSatCPP.dir/Classes/Matrices/TemperatureMatrix.cpp.o: CXX_COMPILER__CubeSatCPP_unscanned_Debug /home/sudo/CLionProjects/CubeSatCPP/Classes/Matrices/TemperatureMatrix.cpp || cmake_object_order_depends_target_CubeSatCPP
+  DEP_FILE = CMakeFiles/CubeSatCPP.dir/Classes/Matrices/TemperatureMatrix.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/CubeSatCPP.dir
+  OBJECT_FILE_DIR = CMakeFiles/CubeSatCPP.dir/Classes/Matrices
+
 build CMakeFiles/CubeSatCPP.dir/main.cpp.o: CXX_COMPILER__CubeSatCPP_unscanned_Debug /home/sudo/CLionProjects/CubeSatCPP/main.cpp || cmake_object_order_depends_target_CubeSatCPP
   DEP_FILE = CMakeFiles/CubeSatCPP.dir/main.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/CubeSatCPP.dir
-  OBJECT_FILE_DIR = CMakeFiles/CubeSatCPP.dir
-
-build CMakeFiles/CubeSatCPP.dir/ThermalSimulation.cpp.o: CXX_COMPILER__CubeSatCPP_unscanned_Debug /home/sudo/CLionProjects/CubeSatCPP/ThermalSimulation.cpp || cmake_object_order_depends_target_CubeSatCPP
-  DEP_FILE = CMakeFiles/CubeSatCPP.dir/ThermalSimulation.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/CubeSatCPP.dir
-  OBJECT_FILE_DIR = CMakeFiles/CubeSatCPP.dir
-
-build CMakeFiles/CubeSatCPP.dir/ViewFactorMatrix.cpp.o: CXX_COMPILER__CubeSatCPP_unscanned_Debug /home/sudo/CLionProjects/CubeSatCPP/ViewFactorMatrix.cpp || cmake_object_order_depends_target_CubeSatCPP
-  DEP_FILE = CMakeFiles/CubeSatCPP.dir/ViewFactorMatrix.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/CubeSatCPP.dir
-  OBJECT_FILE_DIR = CMakeFiles/CubeSatCPP.dir
-
-build CMakeFiles/CubeSatCPP.dir/HeatFluxMatrix.cpp.o: CXX_COMPILER__CubeSatCPP_unscanned_Debug /home/sudo/CLionProjects/CubeSatCPP/HeatFluxMatrix.cpp || cmake_object_order_depends_target_CubeSatCPP
-  DEP_FILE = CMakeFiles/CubeSatCPP.dir/HeatFluxMatrix.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/CubeSatCPP.dir
-  OBJECT_FILE_DIR = CMakeFiles/CubeSatCPP.dir
-
-build CMakeFiles/CubeSatCPP.dir/TemperatureMatrix.cpp.o: CXX_COMPILER__CubeSatCPP_unscanned_Debug /home/sudo/CLionProjects/CubeSatCPP/TemperatureMatrix.cpp || cmake_object_order_depends_target_CubeSatCPP
-  DEP_FILE = CMakeFiles/CubeSatCPP.dir/TemperatureMatrix.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/CubeSatCPP.dir
   OBJECT_FILE_DIR = CMakeFiles/CubeSatCPP.dir
@@ -87,7 +93,7 @@ build CMakeFiles/CubeSatCPP.dir/TemperatureMatrix.cpp.o: CXX_COMPILER__CubeSatCP
 #############################################
 # Link the executable CubeSatCPP
 
-build CubeSatCPP: CXX_EXECUTABLE_LINKER__CubeSatCPP_Debug CMakeFiles/CubeSatCPP.dir/main.cpp.o CMakeFiles/CubeSatCPP.dir/ThermalSimulation.cpp.o CMakeFiles/CubeSatCPP.dir/ViewFactorMatrix.cpp.o CMakeFiles/CubeSatCPP.dir/HeatFluxMatrix.cpp.o CMakeFiles/CubeSatCPP.dir/TemperatureMatrix.cpp.o
+build CubeSatCPP: CXX_EXECUTABLE_LINKER__CubeSatCPP_Debug CMakeFiles/CubeSatCPP.dir/Classes/Matrices/main.cpp.o CMakeFiles/CubeSatCPP.dir/Classes/ThermalSimulation.cpp.o CMakeFiles/CubeSatCPP.dir/Classes/Matrices/ViewFactorMatrix.cpp.o CMakeFiles/CubeSatCPP.dir/Classes/Matrices/HeatFluxMatrix.cpp.o CMakeFiles/CubeSatCPP.dir/Classes/Matrices/TemperatureMatrix.cpp.o CMakeFiles/CubeSatCPP.dir/main.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/CubeSatCPP.dir
   POST_BUILD = :

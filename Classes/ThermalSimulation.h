@@ -8,9 +8,9 @@
 
 #include <string>
 #include <unordered_map>
-#include "ViewFactorMatrix.h"
-#include "HeatFluxMatrix.h"
-#include "TemperatureMatrix.h"
+#include "Matrices/ViewFactorMatrix.h"
+#include "Matrices/HeatFluxMatrix.h"
+#include "Matrices/TemperatureMatrix.h"
 #include <cmath>
 
 class ThermalSimulation {

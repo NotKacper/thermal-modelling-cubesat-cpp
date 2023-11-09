@@ -3,7 +3,7 @@ project(CubeSatCPP)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(CubeSatCPP Classes/Matrices/main.cpp
+add_executable(CubeSatCPP
         Classes/ThermalSimulation.cpp
         Classes/ThermalSimulation.h
         Classes/Matrices/ViewFactorMatrix.cpp

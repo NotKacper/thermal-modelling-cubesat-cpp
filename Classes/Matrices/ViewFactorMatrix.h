@@ -7,6 +7,14 @@
 
 
 class ViewFactorMatrix {
+private:
+    double matrix[3][2]{};
+public:
+    ViewFactorMatrix() {
+        for (auto & i : matrix) {
+            i[0] = i[1] = 0;
+        }
+    }
 
 };
 

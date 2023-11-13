@@ -5,6 +5,7 @@
 #ifndef CUBESATCPP_THERMALSIMULATION_H
 #define CUBESATCPP_THERMALSIMULATION_H
 
+// all matrices are formatted in the following way: [[NORTH, SOUTH],[V+.V-],[NADIR, ZENITH]]
 
 #include <string>
 #include <unordered_map>

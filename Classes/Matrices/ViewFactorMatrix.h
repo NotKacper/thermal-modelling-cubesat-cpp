@@ -12,7 +12,7 @@
 
 class ViewFactorMatrix {
 private:
-    double matrix[3][2]{};
+
 
     static double degreesToRadians(double angleInDegrees) {
         return angleInDegrees * (M_PI / 180);
@@ -78,6 +78,9 @@ private:
 
 
 public:
+
+    double matrix[3][2]{};
+
     ViewFactorMatrix() {
         for (auto &i: matrix) {
             i[0] = i[1] = 0;

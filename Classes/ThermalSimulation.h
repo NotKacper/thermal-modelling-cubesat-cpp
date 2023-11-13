@@ -51,8 +51,8 @@ private:
 
     std::unordered_map<std::string, double[]> update() {
         updateHeatFluxIRAlbedo();
-        viewFactors.update();
-        heatFlux.update();
+        viewFactors.update(variables);
+        heatFlux.update(variables);
         temperatures.update();
         variables["time"]+=deltaTime;
     }

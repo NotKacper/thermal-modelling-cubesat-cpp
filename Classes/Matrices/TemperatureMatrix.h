@@ -7,9 +7,9 @@
 
 
 class TemperatureMatrix {
-private:
-    double matrix[3][2]{};
 public:
+    double matrix[3][2]{};
+
     TemperatureMatrix() {
         for (auto &i: matrix) {
             i[0] = i[1] = 0;

@@ -12,4 +12,6 @@ add_executable(CubeSatCPP
         Classes/Matrices/HeatFluxMatrix.h
         Classes/Matrices/TemperatureMatrix.cpp
         Classes/Matrices/TemperatureMatrix.h
-        main.cpp)
+        main.cpp
+        Classes/Matrices/Matrix.cpp
+        Classes/Matrices/Matrix.h)

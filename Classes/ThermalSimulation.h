@@ -19,18 +19,20 @@ private:
     ViewFactorMatrix viewFactors;
     HeatFluxMatrix heatFlux;
     TemperatureMatrix temperatures;
-    double areas[3];
-    double absorption[3][2];
-    double emissivity[3][2];
+    Matrix areas;
+    Matrix absorption;
+    Matrix emissivity;
     double deltaTime;
     double mass;
     std::unordered_map<std::string, double> variables;
+
 public:
-    ThermalSimulation(std::unordered_map<std::string, double> constants) {
+
+    explicit ThermalSimulation(std::unordered_map<std::string, double> constants) {
         for (int i = 0; i < 3; i++) {
-            absorption[i][0] = absorption[i][1] = constants["absorption"];
-            emissivity[i][0] = emissivity[i][1] = constants["emissivity"];
-            areas[i] = constants["area"];
+            absorption.matrix[i][0] = absorption.matrix[i][1] = constants["absorption"];
+            emissivity.matrix[i][0] = emissivity.matrix[i][1] = constants["emissivity"];
+            areas.matrix[i][0] = areas.matrix[i][1] = constants["area"];
         }
         deltaTime = constants["deltaTime"];
         mass = constants["mass"];
@@ -54,14 +56,14 @@ private:
         viewFactors.update(variables);
         heatFlux.update(variables);
         temperatures.update();
-        variables["time"]+=deltaTime;
+        variables["time"] += deltaTime;
     }
 
 public:
     std::unordered_map<std::string, double[]> simulate(int iterations) {
         std::unordered_map<std::string, double[]> dataPoints;
 
-        for (int i=0; i < iterations; i++) {
+        for (int i = 0; i < iterations; i++) {
 
         }
     }

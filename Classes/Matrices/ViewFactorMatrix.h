@@ -9,8 +9,9 @@
 #include <string>
 #include <unordered_map>
 #include <cmath>
+#include "Matrix.h"
 
-class ViewFactorMatrix {
+class ViewFactorMatrix : public Matrix {
 private:
 
 
@@ -78,15 +79,6 @@ private:
 
 
 public:
-
-    double matrix[3][2]{};
-
-    ViewFactorMatrix() {
-        for (auto &i: matrix) {
-            i[0] = i[1] = 0;
-        }
-    }
-
 
     void update(std::unordered_map<std::string, double> variables) {
         double cosBeta = cos(degreesToRadians(variables["betaAngle"]));

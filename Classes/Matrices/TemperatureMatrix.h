@@ -6,16 +6,10 @@
 #define CUBESATCPP_TEMPERATUREMATRIX_H
 
 
-class TemperatureMatrix {
+#include "Matrix.h"
+
+class TemperatureMatrix : public Matrix {
 public:
-    double matrix[3][2]{};
-
-    TemperatureMatrix() {
-        for (auto &i: matrix) {
-            i[0] = i[1] = 0;
-        }
-    }
-
     void updateTemperature(double mass, double specificHeatCapacity, double heatFlowMatrix[3][2], double deltaTime) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {

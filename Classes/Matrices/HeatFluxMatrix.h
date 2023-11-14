@@ -18,32 +18,65 @@ private:
         return angleInDegrees * (M_PI / 180);
     }
 
-    static double findHeatFluxGeneral(std::unordered_map<std::string, double> variables, TemperatureMatrix temperatures,
-                                      ViewFactorMatrix viewFactors, Matrix Area) {
-        if () {
-            return 0;
+    static double calculateConductionBetweenSides(int row, int column, Matrix areas, TemperatureMatrix temperatures) {
+        double sum = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (row != i) {
+                    sum += areas.matrix[i][j] * (temperatures.matrix[i][j] - temperatures.matrix[row][column]);
+                }
+            }
         }
-        return 0;
+        return sum;
+    }
+
+    static double findHeatFluxGeneral(int row, int column, std::unordered_map<std::string, double> variables,
+                                      TemperatureMatrix temperatures,
+                                      ViewFactorMatrix viewFactors, Matrix areas, Matrix emissivities,
+                                      Matrix absorptions) {
+        double part1 = viewFactors.matrix[row][column] * areas.matrix[row][column] * variables["heatFluxSun"] *
+                       absorptions.matrix[row][column];
+        double part2 = variables["heatConductanceCoefficient"] *
+                       calculateConductionBetweenSides(row, column, areas, temperatures);
+        double part3 = variables["steffanBoltzmann"] * emissivities.matrix[row][column] * areas.matrix[row][column] *
+                       pow(temperatures.matrix[row][column], 4);
+        return part1 + part2 - part3;
     }
 
 
     static double
-    findHeatFluxNadir(double eclipseFraction, std::unordered_map<std::string, double> variables, double cosBeta,
-                      double cosValue) {
-        if ((variables["orbitalPeriod"] < 4 * variables["time"] &&
-             4 * variables["time"] < 2 * (1 - eclipseFraction) *
-                                     variables["orbitalPeriod"]) ||
-            (variables["orbitalPeriod"] * (1 + eclipseFraction) < variables["time"] * 2 &&
-             variables["time"] * 2 < M_PI_2 * 3)) {
-            return -cosValue * cosBeta;
-        }
-        return 0;
+    findHeatFluxNadir(int row, int column, std::unordered_map<std::string, double> variables,
+                      TemperatureMatrix temperatures,
+                      ViewFactorMatrix viewFactors, Matrix areas, Matrix emissivities,
+                      Matrix absorptions) {
+        double part1 = (viewFactors.matrix[row][column] + variables["albedo"]) * areas.matrix[row][column] *
+                       variables["heatFluxSun"] *
+                       absorptions.matrix[row][column];
+        double part2 = variables["heatConductanceCoefficient"] *
+                       calculateConductionBetweenSides(row, column, areas, temperatures);
+        double part3 = variables["heatFluxIR"] * areas.matrix[row][column];
+        double part4 = variables["steffanBoltzmann"] * emissivities.matrix[row][column] * areas.matrix[row][column] *
+                       pow(temperatures.matrix[row][column], 4);
+        return part1 + part2 + part3 - part4;
+    }
+
+    static double
+    findHeatFluxSouth(int row, int column, std::unordered_map<std::string, double> variables,
+                      TemperatureMatrix temperatures,
+                      ViewFactorMatrix viewFactors, Matrix areas, Matrix emissivities) {
+        double part1 = variables["heatConductanceCoefficient"] *
+                       calculateConductionBetweenSides(row, column, areas, temperatures);
+        double part2 = variables["steffanBoltzmann"] * emissivities.matrix[row][column] * areas.matrix[row][column] *
+                       pow(temperatures.matrix[row][column], 4);
+        return part1 - part2;
+
     }
 
 
 public:
-    void update(std::unordered_map<std::string, double> variables, TemperatureMatrix temperatures, ViewFactorMatrix viewFactors, Matrix areas, Matrix emissivities, Matrix absorptions) {
-
+    void update(std::unordered_map<std::string, double> variables, TemperatureMatrix temperatures,
+                ViewFactorMatrix viewFactors, Matrix areas, Matrix emissivities, Matrix absorptions) {
+        
     }
 };
 

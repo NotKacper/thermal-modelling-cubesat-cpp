@@ -62,8 +62,7 @@ private:
 
     static double
     findHeatFluxSouth(int row, int column, std::unordered_map<std::string, double> variables,
-                      TemperatureMatrix temperatures,
-                      ViewFactorMatrix viewFactors, Matrix areas, Matrix emissivities) {
+                      TemperatureMatrix temperatures, Matrix areas, Matrix emissivities) {
         double part1 = variables["heatConductanceCoefficient"] *
                        calculateConductionBetweenSides(row, column, areas, temperatures);
         double part2 = variables["steffanBoltzmann"] * emissivities.matrix[row][column] * areas.matrix[row][column] *
@@ -76,7 +75,15 @@ private:
 public:
     void update(std::unordered_map<std::string, double> variables, TemperatureMatrix temperatures,
                 ViewFactorMatrix viewFactors, Matrix areas, Matrix emissivities, Matrix absorptions) {
-        
+        for (int i=0; i < 3; i++) {
+            for (int j=0; j < 2; j++) {
+                if (!(i==0 && j==1) && !(i==2 && j==0)) {
+                    matrix[i][j] = findHeatFluxGeneral(i,j,variables,temperatures,viewFactors,areas,emissivities,absorptions);
+                }
+            }
+        }
+        matrix[0][1] = findHeatFluxSouth(0, 1, variables, temperatures, areas, emissivities);
+        matrix[2][0] = findHeatFluxNadir(2,0,variables,temperatures,viewFactors,areas,emissivities,absorptions);
     }
 };
 

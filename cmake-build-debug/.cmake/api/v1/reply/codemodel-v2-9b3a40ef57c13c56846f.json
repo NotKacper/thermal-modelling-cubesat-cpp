@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.26"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "CubeSatCPP::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-CubeSatCPP-Debug-0c5ff416674929847954.json",
+					"jsonFile" : "target-CubeSatCPP-Debug-6275fcf6819221053baa.json",
 					"name" : "CubeSatCPP",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/sudo/CLionProjects/CubeSatCPP/cmake-build-debug",
-		"source" : "/home/sudo/CLionProjects/CubeSatCPP"
+		"build" : "C:/Users/Kacper/CLionProjects/thermal-modelling-cubesat-cpp/cmake-build-debug",
+		"source" : "C:/Users/Kacper/CLionProjects/thermal-modelling-cubesat-cpp"
 	},
 	"version" : 
 	{

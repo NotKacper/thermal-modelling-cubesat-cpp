@@ -7,13 +7,14 @@
 
 
 #include "Matrix.h"
+#include "HeatFluxMatrix.h"
 
 class TemperatureMatrix : public Matrix {
 public:
-    void updateTemperature(double mass, double specificHeatCapacity, double heatFlowMatrix[3][2], double deltaTime) {
+    void updateTemperature(double mass, double specificHeatCapacity, HeatFluxMatrix heatFluxMatrix, double deltaTime) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {
-                matrix[i][j] += deltaTime * heatFlowMatrix[i][j] / (mass * specificHeatCapacity);
+                matrix[i][j] += deltaTime * heatFluxMatrix.matrix[i][j] / (mass * specificHeatCapacity);
             }
         }
     }

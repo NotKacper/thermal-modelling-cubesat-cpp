@@ -28,6 +28,12 @@ private:
 public:
 
     explicit ThermalSimulation(std::unordered_map<std::string, double> constants) {
+        viewFactors = ViewFactorMatrix();
+        heatFlux = HeatFluxMatrix();
+        temperatures = TemperatureMatrix();
+        areas = Matrix();
+        absorption = Matrix();
+        emissivity = Matrix();
         for (int i = 0; i < 3; i++) {
             absorption.matrix[i][0] = absorption.matrix[i][1] = constants["absorption"];
             emissivity.matrix[i][0] = emissivity.matrix[i][1] = constants["emissivity"];

@@ -23,7 +23,6 @@ private:
     Matrix absorption;
     Matrix emissivity;
     double deltaTime;
-    double mass;
     std::unordered_map<std::string, double> variables;
 
 public:
@@ -35,9 +34,9 @@ public:
             areas.matrix[i][0] = areas.matrix[i][1] = constants["area"];
         }
         deltaTime = constants["deltaTime"];
-        mass = constants["mass"];
         constants["criticalBeta"] = asin(constants["radiusEarth"] / (constants["radiusEarth"] + constants["altitude"]));
         constants["albedo"] = constants["time"] = constants["heatFluxIR"] = 0;
+        variables = constants;
     }
 
 private:
@@ -51,21 +50,27 @@ private:
         }
     }
 
-    std::unordered_map<std::string, double[]> update() {
+    void update() {
         updateHeatFluxIRAlbedo();
         viewFactors.update(variables);
-        heatFlux.update(variables);
-        temperatures.update();
+        heatFlux.update(variables, temperatures, viewFactors, areas, emissivity, absorption);
+        temperatures.update(variables, heatFlux, deltaTime);
         variables["time"] += deltaTime;
     }
 
 public:
     std::unordered_map<std::string, double[]> simulate(int iterations) {
         std::unordered_map<std::string, double[]> dataPoints;
-
+        double time[iterations];
+        double betaAngle[iterations];
+        double temperature[iterations];
         for (int i = 0; i < iterations; i++) {
-
+            update();
+            time[i]=variables["time"];
+            betaAngle[i] = variables["betaAngle"];
+            temperature[i] = temperatures.getAverageTemperature();
         }
+        return dataPoints;
     }
 
 };

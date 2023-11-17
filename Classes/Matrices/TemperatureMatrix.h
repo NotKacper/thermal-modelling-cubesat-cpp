@@ -8,13 +8,14 @@
 
 #include "Matrix.h"
 #include "HeatFluxMatrix.h"
+#include <string>
 
 class TemperatureMatrix : public Matrix {
 public:
-    void updateTemperature(double mass, double specificHeatCapacity, HeatFluxMatrix heatFluxMatrix, double deltaTime) {
+    void update(std::unordered_map<std::string, double>variables, HeatFluxMatrix heatFluxMatrix, double deltaTime) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {
-                matrix[i][j] += deltaTime * heatFluxMatrix.matrix[i][j] / (mass * specificHeatCapacity);
+                matrix[i][j] += deltaTime * heatFluxMatrix.matrix[i][j] / (variables["mass"] * variables["specificHeatCapacity"]);
             }
         }
     }

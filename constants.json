@@ -1,0 +1,21 @@
+{
+  "heat_flux_sun": 1414,
+  "contact_conductance_coefficient": 400,
+  "radius_earth": 6371,
+  "altitude": 500,
+  "delta_time": 100,
+  "orbital_period": 86400,
+  "specific_heat_capacity": 900,
+  "mass": 12,
+  "width": 0.2,
+  "length": 0.3405,
+  "height": 0.1,
+  "initial_temperature": 273.15,
+  "internal_heat_flux": 15,
+  "absorption": 0.95,
+  "emissivity": 0.85,
+  "stefan_boltzmann": 5.670374419e-8,
+  "temperature_unit": "k",
+  "beta_angle": -90,
+  "time": 0
+}

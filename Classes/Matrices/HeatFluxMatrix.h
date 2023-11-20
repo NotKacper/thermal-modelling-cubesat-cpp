@@ -8,8 +8,7 @@
 #include <string>
 #include <unordered_map>
 #include <cmath>
-#include "TemperatureMatrix.h"
-#include "ViewFactorMatrix.h"
+#include "Matrix.h"
 
 class HeatFluxMatrix : public Matrix {
 private:
@@ -18,7 +17,7 @@ private:
         return angleInDegrees * (M_PI / 180);
     }
 
-    static double calculateConductionBetweenSides(int row, int column, Matrix areas, TemperatureMatrix temperatures) {
+    static double calculateConductionBetweenSides(int row, int column, Matrix areas, Matrix temperatures) {
         double sum = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {
@@ -31,8 +30,8 @@ private:
     }
 
     static double findHeatFluxGeneral(int row, int column, std::unordered_map<std::string, double> variables,
-                                      TemperatureMatrix temperatures,
-                                      ViewFactorMatrix viewFactors, Matrix areas, Matrix emissivities,
+                                      Matrix temperatures,
+                                      Matrix viewFactors, Matrix areas, Matrix emissivities,
                                       Matrix absorptions) {
         double part1 = viewFactors.matrix[row][column] * areas.matrix[row][column] * variables["heatFluxSun"] *
                        absorptions.matrix[row][column];
@@ -46,8 +45,8 @@ private:
 
     static double
     findHeatFluxNadir(int row, int column, std::unordered_map<std::string, double> variables,
-                      TemperatureMatrix temperatures,
-                      ViewFactorMatrix viewFactors, Matrix areas, Matrix emissivities,
+                      Matrix temperatures,
+                      Matrix viewFactors, Matrix areas, Matrix emissivities,
                       Matrix absorptions) {
         double part1 = (viewFactors.matrix[row][column] + variables["albedo"]) * areas.matrix[row][column] *
                        variables["heatFluxSun"] *
@@ -62,7 +61,7 @@ private:
 
     static double
     findHeatFluxSouth(int row, int column, std::unordered_map<std::string, double> variables,
-                      TemperatureMatrix temperatures, Matrix areas, Matrix emissivities) {
+                      Matrix temperatures, Matrix areas, Matrix emissivities) {
         double part1 = variables["heatConductanceCoefficient"] *
                        calculateConductionBetweenSides(row, column, areas, temperatures);
         double part2 = variables["steffanBoltzmann"] * emissivities.matrix[row][column] * areas.matrix[row][column] *
@@ -73,8 +72,8 @@ private:
 
 
 public:
-    void update(std::unordered_map<std::string, double> variables, TemperatureMatrix temperatures,
-                ViewFactorMatrix viewFactors, Matrix areas, Matrix emissivities, Matrix absorptions) {
+    void update(std::unordered_map<std::string, double> variables, Matrix temperatures,
+                Matrix viewFactors, Matrix areas, Matrix emissivities, Matrix absorptions) {
         for (int i=0; i < 3; i++) {
             for (int j=0; j < 2; j++) {
                 if (!(i==0 && j==1) && !(i==2 && j==0)) {

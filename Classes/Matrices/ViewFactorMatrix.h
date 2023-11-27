@@ -13,18 +13,12 @@
 
 class ViewFactorMatrix : public Matrix {
 private:
-
-
-    static double degreesToRadians(double angleInDegrees) {
-        return angleInDegrees * (M_PI / 180);
-    }
-
     static double findEclipseFraction(std::unordered_map<std::string, double> variables, double cosBeta) {
-        if (std::abs(variables["betaAngle"]) < variables["criticalBeta"]) {
+        if (std::abs(degreesToRadians(variables["betaAngle"])) < variables["criticalBeta"]) {
             return (M_1_PI) *
                    acos(sqrt(pow(variables["altitude"], 2) + 2 * variables["radiusEarth"] * variables["altitude"]) /
                         (variables["radiusEarth"] + variables["altitude"] * cosBeta));
-        } else if (std::abs(variables["betaAngle"]) >= variables["criticalBeta"]) {
+        } else if (std::abs(degreesToRadians(variables["betaAngle"])) >= variables["criticalBeta"]) {
             return 0;
         }
     }
@@ -32,7 +26,7 @@ private:
     static double findViewFactorNorthSouth(double eclipseFraction, std::unordered_map<std::string, double> variables) {
         if (variables["orbitalPeriod"] * (1 - eclipseFraction) > 2 * variables["time"] &&
             2 * variables["time"] > variables["orbitalPeriod"] * (1 + eclipseFraction)) {
-            return sin(variables["betaAngle"]);
+            return sin(degreesToRadians(variables["betaAngle"]));
         }
         return 0;
     }
@@ -92,6 +86,9 @@ public:
         matrix[2][1] = findViewFactorZenith(variables, cosBeta, cosValue);
     }
 
+    static double degreesToRadians(double angleInDegrees) {
+        return angleInDegrees * (M_PI / 180);
+    }
 };
 
 

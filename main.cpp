@@ -1,8 +1,6 @@
 #include <fstream>
 #include <iostream>
 #include "Classes/ThermalSimulation.h"
-#include "dist\json\json.h"
-#include "dist\jsoncpp.cpp"
 #include <string>
 #include <unordered_map>
 
@@ -29,9 +27,16 @@ int main() {
     constants["absorption"]=0.95;
     constants["emissivity"]=0.85;
     constants["stefanBoltzmann"]=5.670374419e-8;
-    constants["betaAngle"]=90;
+    constants["betaAngle"]=0;
     constants["time"]=0;
     ThermalSimulation thermalSimulation = ThermalSimulation(constants);
-    thermalSimulation.simulate(100);
+    DataStorage dataStorage = thermalSimulation.simulate(100);
+    std::ofstream myFile;
+    myFile.open("output.csv");
+    myFile << "time, betaAngle, temperature\n";
+    for (int i=0; i < dataStorage.dataPoints;i++) {
+        myFile << dataStorage.getNextLine();
+    }
+    myFile.close();
     return 0;
 };

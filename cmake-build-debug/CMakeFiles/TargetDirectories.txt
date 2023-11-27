@@ -1,3 +1,0 @@
-/home/sudo/CLionProjects/CubeSatCPP/cmake-build-debug/CMakeFiles/CubeSatCPP.dir
-/home/sudo/CLionProjects/CubeSatCPP/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/sudo/CLionProjects/CubeSatCPP/cmake-build-debug/CMakeFiles/rebuild_cache.dir

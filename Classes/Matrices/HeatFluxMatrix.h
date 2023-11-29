@@ -66,7 +66,7 @@ private:
 
     }
 
-    double
+    static double
     getInputHeatFlux(int row, int column, std::unordered_map<std::string, double> variables, Matrix areas) {
         double sumAreas = 0;
         for (auto &i: areas.matrix) {
@@ -74,7 +74,7 @@ private:
                 sumAreas += j;
             }
         }
-        return matrix[row][column] / sumAreas * variables["internalHeatFlux"];
+        return areas.matrix[row][column] / sumAreas * variables["internalHeatFlux"];
     }
 
 public:

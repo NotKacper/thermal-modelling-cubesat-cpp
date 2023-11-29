@@ -13,15 +13,16 @@
 class TemperatureMatrix : public Matrix {
 public:
     explicit TemperatureMatrix(double initialTemperature) : Matrix() {
-        for (auto &i : matrix) {
-            i[0]=i[1]=initialTemperature;
+        for (auto &i: matrix) {
+            i[0] = i[1] = initialTemperature;
         }
     }
 
-    void update(std::unordered_map<std::string, double>variables, Matrix heatFluxMatrix, double deltaTime) {
+    void update(std::unordered_map<std::string, double> variables, Matrix heatFluxMatrix, double deltaTime) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {
-                matrix[i][j] += deltaTime * heatFluxMatrix.matrix[i][j] / (variables["mass"] * variables["specificHeatCapacity"]);
+                matrix[i][j] += deltaTime * heatFluxMatrix.matrix[i][j] /
+                                (variables["mass"] * variables["specificHeatCapacity"]);
             }
         }
     }
@@ -33,7 +34,7 @@ public:
                 sum += j;
             }
         }
-        return sum/6;
+        return sum / 6;
     }
 };
 

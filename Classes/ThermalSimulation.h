@@ -70,7 +70,7 @@ private:
 public:
 
     DataStorage simulate(int iterations) {
-        DataStorage dataStorage = DataStorage(iterations);
+        DataStorage dataStorage = DataStorage(90 * iterations);
         for (int j = 0; j < 90; j++) {
             variables["betaAngle"]++;
             for (int i = 0; i < iterations; i++) {

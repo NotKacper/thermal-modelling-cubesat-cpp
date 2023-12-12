@@ -14,6 +14,7 @@
 #include "Matrices/TemperatureMatrix.h"
 #include "Matrices/DataStorage.h"
 #include <cmath>
+#include <iostream>
 
 class ThermalSimulation {
 private:
@@ -71,9 +72,10 @@ public:
 
     DataStorage simulate(int iterations) {
         DataStorage dataStorage = DataStorage(90 * iterations);
-        for (int j = 0; j < 90; j++) {
-            variables["betaAngle"]++;
+        for (int j = 0; j < 9; j++) {
+            variables["betaAngle"]+=10;
             for (int i = 0; i < iterations; i++) {
+                std::cout << std::to_string(100*(1.0*(j)/9 + 1.0*(i)/iterations/9)) + "% done!\n";
                 update();
                 dataStorage.addTime(variables["time"]);
                 dataStorage.addBetaAngle(variables["betaAngle"]);

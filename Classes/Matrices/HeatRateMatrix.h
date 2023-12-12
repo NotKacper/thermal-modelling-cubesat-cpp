@@ -58,7 +58,7 @@ private:
     static double
     findHeatFluxSouth(int row, int column, std::unordered_map<std::string, double> variables,
                       Matrix temperatures, Matrix areas, Matrix emissivities) {
-        double part1 = variables["contactConductanceCoefficient"] *
+        double part1 = variables.at("contactConductanceCoefficient") *
                        calculateConductionBetweenSides(row, column, areas, temperatures);
         double part2 = variables["stefanBoltzmann"] * emissivities.matrix[row][column] * areas.matrix[row][column] *
                        pow(temperatures.matrix[row][column], 4);
@@ -66,7 +66,7 @@ private:
 
     }
 
-    double
+    static double
     getInputHeatFlux(int row, int column, std::unordered_map<std::string, double> variables, Matrix areas) {
         double sumAreas = 0;
         for (auto &i: areas.matrix) {
@@ -74,7 +74,7 @@ private:
                 sumAreas += j;
             }
         }
-        return matrix[row][column] / sumAreas * variables["internalHeatFlux"];
+        return areas.matrix[row][column] / sumAreas * variables["internalHeatFlux"];
     }
 
 public:
@@ -85,14 +85,11 @@ public:
                 if (!(i == 0 && j == 1) && !(i == 2 && j == 0)) {
                     matrix[i][j] = findHeatFluxGeneral(i, j, variables, temperatures, viewFactors, areas, emissivities,
                                                        absorptions);
-                    matrix[i][j] += getInputHeatFlux(i, j, variables, areas);
                 }
             }
         }
-        matrix[0][1] = findHeatFluxSouth(0, 1, variables, temperatures, areas, emissivities) +
-                       getInputHeatFlux(0, 1, variables, areas);
-        matrix[2][0] = findHeatFluxNadir(2, 0, variables, temperatures, viewFactors, areas, emissivities, absorptions) +
-                       getInputHeatFlux(2, 0, variables, areas);
+        matrix[0][1] = findHeatFluxSouth(0, 1, variables, temperatures, areas, emissivities);
+        matrix[2][0] = findHeatFluxNadir(2, 0, variables, temperatures, viewFactors, areas, emissivities, absorptions);
     }
 };
 

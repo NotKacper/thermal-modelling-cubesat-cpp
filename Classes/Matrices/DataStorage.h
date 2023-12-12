@@ -4,6 +4,7 @@
 
 #ifndef CUBESATCPP_DATASTORAGE_H
 #define CUBESATCPP_DATASTORAGE_H
+
 #include <list>
 #include <string>
 
@@ -15,7 +16,7 @@ public:
     std::list<double> temperature;
     int dataPoints;
 
-    DataStorage(int iterations) {
+    explicit DataStorage(int iterations) {
         dataPoints = iterations;
         time = {};
         betaAngle = {};
@@ -35,7 +36,8 @@ public:
     }
 
     std::string getNextLine() {
-        std::string line = std::to_string(time.front())+","+std::to_string(betaAngle.front())+","+std::to_string(temperature.front())+"\n";
+        std::string line = std::to_string(time.front()) + "," + std::to_string(betaAngle.front()) + "," +
+                           std::to_string(temperature.front()) + "\n";
         time.pop_front();
         temperature.pop_front();
         betaAngle.pop_front();

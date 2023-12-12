@@ -58,7 +58,7 @@ private:
     static double
     findHeatRateSouth(int row, int column, std::unordered_map<std::string, double> variables,
                       Matrix temperatures, Matrix areas, Matrix emissivities) {
-        double part1 = variables.at("contactConductanceCoefficient") *
+        double part1 = variables["contactConductanceCoefficient"] *
                        calculateConductionBetweenSides(row, column, areas, temperatures);
         double part2 = variables["stefanBoltzmann"] * emissivities.matrix[row][column] * areas.matrix[row][column] *
                        pow(temperatures.matrix[row][column], 4);

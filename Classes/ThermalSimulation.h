@@ -10,7 +10,7 @@
 #include <string>
 #include <unordered_map>
 #include "Matrices/ViewFactorMatrix.h"
-#include "Matrices/HeatFluxMatrix.h"
+#include "Matrices/HeatRateMatrix.h"
 #include "Matrices/TemperatureMatrix.h"
 #include "Matrices/DataStorage.h"
 #include <cmath>
@@ -18,7 +18,7 @@
 class ThermalSimulation {
 private:
     ViewFactorMatrix viewFactors;
-    HeatFluxMatrix heatFlux;
+    HeatRateMatrix heatRate;
     TemperatureMatrix temperatures = TemperatureMatrix(273.15);
     Matrix areas;
     Matrix absorption;
@@ -30,7 +30,7 @@ public:
 
     explicit ThermalSimulation(std::unordered_map<std::string, double> constants) {
         viewFactors = ViewFactorMatrix();
-        heatFlux = HeatFluxMatrix();
+        heatRate = HeatRateMatrix();
         temperatures = TemperatureMatrix(constants["initialTemperature"]);
         areas = Matrix();
         absorption = Matrix();
@@ -62,15 +62,15 @@ private:
     void update() {
         updateHeatFluxIRAlbedo();
         viewFactors.update(variables);
-        heatFlux.update(variables, temperatures, viewFactors, areas, emissivity, absorption);
-        temperatures.update(variables, heatFlux, deltaTime);
+        heatRate.update(variables, temperatures, viewFactors, areas, emissivity, absorption);
+        temperatures.update(variables, heatRate, deltaTime);
         variables["time"] += deltaTime;
     }
 
 public:
 
     DataStorage simulate(int iterations) {
-        DataStorage dataStorage = DataStorage(iterations);
+        DataStorage dataStorage = DataStorage(90 * iterations);
         for (int j = 0; j < 90; j++) {
             variables["betaAngle"]++;
             for (int i = 0; i < iterations; i++) {
@@ -79,6 +79,10 @@ public:
                 dataStorage.addBetaAngle(variables["betaAngle"]);
                 dataStorage.addTemperature(temperatures.getAverageTemperature());
             }
+            temperatures = TemperatureMatrix(variables["initialTemperature"]);
+            variables["albedo"] = variables["time"] = variables["heatFluxIR"] = 0;
+            viewFactors = ViewFactorMatrix();
+            heatRate = HeatRateMatrix();
         }
         return dataStorage;
     }

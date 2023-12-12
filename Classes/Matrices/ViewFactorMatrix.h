@@ -18,9 +18,8 @@ private:
             return (M_1_PI) *
                    acos(sqrt(pow(variables["altitude"], 2) + 2 * variables["radiusEarth"] * variables["altitude"]) /
                         (variables["radiusEarth"] + variables["altitude"] * cosBeta));
-        } else if (std::abs(degreesToRadians(variables["betaAngle"])) >= variables["criticalBeta"]) {
-            return 0;
         }
+        return 0;
     }
 
     static double findViewFactorNorthSouth(double eclipseFraction, std::unordered_map<std::string, double> variables) {

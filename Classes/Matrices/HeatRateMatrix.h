@@ -2,15 +2,15 @@
 // Created by sudo on 11/8/23.
 //
 
-#ifndef CUBESATCPP_HEATFLUXMATRIX_H
-#define CUBESATCPP_HEATFLUXMATRIX_H
+#ifndef CUBESATCPP_HEATRATEMATRIX_H
+#define CUBESATCPP_HEATRATEMATRIX_H
 
 #include <string>
 #include <unordered_map>
 #include <cmath>
 #include "Matrix.h"
 
-class HeatFluxMatrix : public Matrix {
+class HeatRateMatrix : public Matrix {
 private:
 
     static double calculateConductionBetweenSides(int row, int column, Matrix areas, Matrix temperatures) {
@@ -25,7 +25,7 @@ private:
         return sum;
     }
 
-    static double findHeatFluxGeneral(int row, int column, std::unordered_map<std::string, double> variables,
+    static double findHeatRateGeneral(int row, int column, std::unordered_map<std::string, double> variables,
                                       Matrix temperatures,
                                       Matrix viewFactors, Matrix areas, Matrix emissivities,
                                       Matrix absorptions) {
@@ -40,7 +40,7 @@ private:
 
 
     static double
-    findHeatFluxNadir(int row, int column, std::unordered_map<std::string, double> variables,
+    findHeatRateNadir(int row, int column, std::unordered_map<std::string, double> variables,
                       Matrix temperatures,
                       Matrix viewFactors, Matrix areas, Matrix emissivities,
                       Matrix absorptions) {
@@ -56,7 +56,7 @@ private:
     }
 
     static double
-    findHeatFluxSouth(int row, int column, std::unordered_map<std::string, double> variables,
+    findHeatRateSouth(int row, int column, std::unordered_map<std::string, double> variables,
                       Matrix temperatures, Matrix areas, Matrix emissivities) {
         double part1 = variables.at("contactConductanceCoefficient") *
                        calculateConductionBetweenSides(row, column, areas, temperatures);
@@ -67,14 +67,17 @@ private:
     }
 
     static double
-    getInputHeatFlux(int row, int column, std::unordered_map<std::string, double> variables, Matrix areas) {
-        double sumAreas = 0;
-        for (auto &i: areas.matrix) {
-            for (double j: i) {
-                sumAreas += j;
-            }
-        }
-        return areas.matrix[row][column] / sumAreas * variables["internalHeatFlux"];
+    getInputHeatRate(int row, int column, std::unordered_map<std::string, double> variables, Matrix areas) {
+        double positionOfSource[3] = {variables["x_0"], variables["height"] / 2, variables["width"] / 2};
+        double distances[3][2] = {
+                {variables["height"] - positionOfSource[1], positionOfSource[1]},
+                {positionOfSource[0],                       variables["length"] - positionOfSource[0]},
+                {positionOfSource[2],                       variables["width"] - positionOfSource[2]}
+        };
+        double distance = distances[row][column];
+        double heatRateAtSide =
+                variables["internalHeatRate"] * M_1_PI * 0.25 * 1 / (pow(distance, 2)) * areas.matrix[row][column];
+        return heatRateAtSide;
     }
 
 public:
@@ -83,15 +86,18 @@ public:
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {
                 if (!(i == 0 && j == 1) && !(i == 2 && j == 0)) {
-                    matrix[i][j] = findHeatFluxGeneral(i, j, variables, temperatures, viewFactors, areas, emissivities,
+                    matrix[i][j] = findHeatRateGeneral(i, j, variables, temperatures, viewFactors, areas, emissivities,
                                                        absorptions);
+                    matrix[i][j] += getInputHeatRate(i, j, variables, areas);
                 }
             }
         }
-        matrix[0][1] = findHeatFluxSouth(0, 1, variables, temperatures, areas, emissivities);
-        matrix[2][0] = findHeatFluxNadir(2, 0, variables, temperatures, viewFactors, areas, emissivities, absorptions);
+        matrix[0][1] = findHeatRateSouth(0, 1, variables, temperatures, areas, emissivities) +
+                       getInputHeatRate(0, 1, variables, areas);
+        matrix[2][0] = findHeatRateNadir(2, 0, variables, temperatures, viewFactors, areas, emissivities, absorptions) +
+                       getInputHeatRate(2, 0, variables, areas);
     }
 };
 
 
-#endif //CUBESATCPP_HEATFLUXMATRIX_H
+#endif //CUBESATCPP_HEATRATEMATRIX_H

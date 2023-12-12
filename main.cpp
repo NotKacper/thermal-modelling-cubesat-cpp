@@ -27,8 +27,8 @@ int main() {
     constants["x_0"] = 0.01;
     double t;
     std::cin >> t;
-    constants["initialTemperature"] = t + 273.15;
-    constants["internalHeatRate"] = 2.5;
+    constants["initialTemperature"] = 273.15;
+    constants["internalHeatRate"] = t;
     constants["absorption"] = 0.95;
     constants["emissivity"] = 0.8;
     constants["stefanBoltzmann"] = 5.670374419e-8;

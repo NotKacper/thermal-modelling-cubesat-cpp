@@ -1,4 +1,4 @@
-thermalData <- read.csv("output-65.000000.csv")
+thermalData <- read.csv("output50.000000.csv")
 
 #Temperature <- matrix(
 #  thermalData$temperature,
